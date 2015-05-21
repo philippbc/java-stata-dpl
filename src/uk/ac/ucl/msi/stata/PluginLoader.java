@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 import com.stata.sfi.SFIToolkit;
 
-import de.philippbc.utils.properties.PropertiesWrapper;
+import de.pbc.utils.properties.PropertiesWrapper;
 
 /**
  * <p>

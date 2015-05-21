@@ -2,7 +2,7 @@ package uk.ac.ucl.msi.stata;
 
 import java.nio.file.Paths;
 
-import de.philippbc.utils.properties.Property;
+import de.pbc.utils.properties.Property;
 
 /**
  * DPL properties.
