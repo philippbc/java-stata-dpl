@@ -24,7 +24,7 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * which dynamically loads other SFI plugins upon execution. It thus allows SFI
  * developers to quickly iterate and debug their own plugins, without having to
  * restart Stata every time. This also applies to the resources SFI plugins may
- * references (e.g., 3rd party libraries).
+ * reference (e.g., 3rd party libraries).
  * </p>
  * <h2>Plugin Interface</h2>
  * <p>
@@ -42,12 +42,12 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * Think of it as setting up your IDE by configuring the {@code CLASS_PATH} to a
  * 3rd party library. In fact, that is exactly what you have to do for DPL too:
  * You have to specify the directories containing your plugins and 3rd party
- * libraries. To do this DPL expects {@code config/spl.xml} in the current
+ * libraries. To do this DPL expects {@code config/dpl.xml} in the current
  * {@code user.dir}. In the case of Stata, this is always the working directory
  * ({@code pwd}) at the time the JVM was started.
  * </p>
  * <p>
- * {@code config/spl.xml} is expected to be a standard XML file as it is used by
+ * {@code config/dpl.xml} is expected to be a standard XML file as it is used by
  * {@link java.util.Properties}. It should contain 2 properties:
  * <ul>
  * <li>{@code CLASS_PATH}: Semicolon ({@code ;}) separated paths to all folders
@@ -74,22 +74,26 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * <br>
  * {@code jcd your.company.your.Module} <br>
  * <br>
+ * The full command syntax for {@code jcd} is:<br>
+ * <br>
+ * {@code jcd class [varlist] [if] [in] [, args(argument_list)]}<br>
+ * <br>
  * Alternatively, you can also invoke DPL directly:<br>
  * <br>
- * {@code javacall uk.ac.ucl.msi.stata.Modules start [varlist] [if] [in] [, args(argument_list)]}
+ * {@code javacall uk.ac.ucl.msi.stata.PluginLoader start [varlist] [if] [in] [, args(argument_list)]}
  * </p>
  * <h2>Notes</h2>
  * <p>
  * If your plugin class is on one of the ADO paths DPL will always use this
  * version; it will not load your class from the resource paths specified in the
- * configuration file. That is, versions of classes on the ADO paths supersede
- * all versions on {@code CLASS_PATH}s and {@code JAR_PATH}s.
+ * configuration file. That is, versions of classes on ADO paths supersede all
+ * versions on {@code CLASS_PATH}s and {@code JAR_PATH}s.
  * </p>
  * <p>
  * Any uncaught exception occurring during the execution of your module leads to
  * DPL returning with error code 44. The exception and its stack trace are
  * printed to the Stata console. This also applies to all steps in preparation
- * of your module's execution (e.g., reading {@code config/spl.xml}).
+ * of your module's execution (e.g., reading {@code config/dpl.xml}).
  * </p>
  * 
  * @author Philipp B. Cornelius
