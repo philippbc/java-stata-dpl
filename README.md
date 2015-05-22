@@ -37,3 +37,7 @@ Alternatively, you can also invoke DPL directly:
 If your plugin class is on one of the ADO paths DPL will always use this version; it will not load your class from the resource paths specified in the configuration file. That is, versions of classes on ADO paths supersede all versions on `CLASS_PATH`s and `JAR_PATH`s.
 
 Any uncaught exception occurring during the execution of your module leads to DPL returning with error code 44. The exception and its stack trace are printed to the Stata console. This also applies to all steps in preparation of your module's execution (e.g., reading `config/dpl.xml`).
+
+#####Dependencies
+* Stata's SFI API for error logging (http://www.stata.com/java/api/index.html)
+* The simple `java.util.Properties` wrapper for the configuration file (https://github.com/philippbc/java-utils-properties)
