@@ -21,7 +21,7 @@ import de.pbc.utils.properties.PropertiesWrapper;
 /**
  * <p>
  * The Stata <i>Dynamic Plugin Loader</i> (DPL) is Stata Java (SFI) plugin,
- * which dynamically loads other SFI plugins upon execution. It thus allows SFI
+ * which dynamically loads other SFI plugins for execution. It thus allows SFI
  * developers to quickly iterate and debug their own plugins, without having to
  * restart Stata every time. This also applies to the resources SFI plugins may
  * reference (e.g., 3rd party libraries).
@@ -31,7 +31,7 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * In order for DPL to load your plugin dynamically, your plugin has to
  * implement the {@link Plugin} interface. {@link Plugin#execute(String[])} is
  * the instantiated entry point for your plugin. The execution environment is
- * identical to Stata invoking a static entry point in your module. That is,
+ * identical to Stata invoking a static entry point in your plugin. That is,
  * everything you can access via the SFI API (e.g., varlist, if, in) and the
  * supplied arguments are identical in either execution environment. See
  * {@link Plugin} for more details.
@@ -70,9 +70,9 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * <p>
  * DPL is used best in conjunction with the {@code jcd} command, which takes
  * care of addressing DPL correctly (see {@code help jcd} for further details).
- * All you need to do is invoke {@code jcd} with your module's name:<br>
+ * All you need to do is invoke {@code jcd} with your plugin's name:<br>
  * <br>
- * {@code jcd your.company.your.Module} <br>
+ * {@code jcd your.company.your.Plugin} <br>
  * <br>
  * The full command syntax for {@code jcd} is:<br>
  * <br>
@@ -80,7 +80,7 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * <br>
  * Alternatively, you can also invoke DPL directly:<br>
  * <br>
- * {@code javacall uk.ac.ucl.msi.stata.PluginLoader start [varlist] [if] [in] [, args(argument_list)]}
+ * {@code javacall uk.ac.ucl.msi.stata.PluginLoader start [varlist] [if] [in] , args(your.company.your.Plugin [argument_list])}
  * </p>
  * <h2>Notes</h2>
  * <p>
@@ -90,19 +90,19 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * versions on {@code CLASS_PATH}s and {@code JAR_PATH}s.
  * </p>
  * <p>
- * Any uncaught exception occurring during the execution of your module leads to
+ * Any uncaught exception occurring during the execution of your plugin leads to
  * DPL returning with error code 44. The exception and its stack trace are
  * printed to the Stata console. This also applies to all steps in preparation
- * of your module's execution (e.g., reading {@code config/dpl.xml}).
+ * of your plugin's execution (e.g., reading {@code config/dpl.xml}).
  * </p>
  * 
  * @author Philipp B. Cornelius
  * @version 2015-05-20
  */
 public class PluginLoader {
-
+	
 	// MAIN ---------------------------------------------------------- //
-
+	
 	/**
 	 * The entry point for {@link PluginLoader}.
 	 * 
@@ -111,44 +111,36 @@ public class PluginLoader {
 	 */
 	public static int start(String args[]) {
 		try {
-			PropertiesWrapper properties = new PropertiesWrapper(
-					Paths.get("config/dpl.xml")).load();
-
+			PropertiesWrapper properties = new PropertiesWrapper(Paths.get("config/dpl.xml")).load();
+			
 			List<URL> urls = new ArrayList<>();
-
+			
 			String[] classPaths = properties.get(CLASS_PATH).split(";");
-			urls.addAll(Arrays.stream(classPaths)
-					.map(PluginLoader::createUrlQuietly)
-					.collect(Collectors.toList()));
-
+			urls.addAll(Arrays.stream(classPaths).map(PluginLoader::createUrlQuietly).collect(Collectors.toList()));
+			
 			String[] jarPaths = properties.get(JAR_PATH).split(";");
 			for (String jarPath : jarPaths) {
 				urls.addAll(Files
 						.find(Paths.get(jarPath),
 								4,
-								(f, a) -> a.isRegularFile()
-										&& f.getFileName().toString()
-												.endsWith(".jar"))
-						.map(PluginLoader::createUrlQuietly)
-						.collect(Collectors.toList()));
+								(f, a) -> a.isRegularFile() && f.getFileName().toString().endsWith(".jar"))
+						.map(PluginLoader::createUrlQuietly).collect(Collectors.toList()));
 			}
-
+			
 			String className = args[0];
 			args = Arrays.copyOfRange(args, 1, args.length);
-
-			try (URLClassLoader loader = new URLClassLoader(
-					urls.toArray(new URL[urls.size()]))) {
-				return ((Plugin) loader.loadClass(className).newInstance())
-						.execute(args);
+			
+			try (URLClassLoader loader = new URLClassLoader(urls.toArray(new URL[urls.size()]))) {
+				return ((Plugin) loader.loadClass(className).newInstance()).execute(args);
 			}
 		} catch (Exception e) {
 			SFIToolkit.error(SFIToolkit.stackTraceToString(e));
 			return 44;
 		}
 	}
-
+	
 	// PRIVATE ------------------------------------------------------- //
-
+	
 	/**
 	 * We know this is virtually never going to happen, hence we wrap the nasty
 	 * {@link MalformedURLException} into an unchecked exception.
@@ -163,7 +155,7 @@ public class PluginLoader {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	/**
 	 * We know this is virtually never going to happen, hence we wrap the nasty
 	 * {@link MalformedURLException} into an unchecked exception. Equivalent to
@@ -179,5 +171,5 @@ public class PluginLoader {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 }
