@@ -4,7 +4,7 @@ The Stata *Dynamic Plugin Loader* (DPL) is Stata Java (SFI) plugin, which dynami
 
 #####Plugin Interface
 
-In order for DPL to load your plugin dynamically, your plugin has to implement the `Plugin` interface. `Plugin.execute(String[])` is the instantiated entry point for your plugin. The execution environment is identical to Stata invoking a static entry point in your module. That is, everything you can access via the SFI API (e.g., varlist, if, in) and the supplied arguments are identical in either execution environment. See `Plugin`'s documentation for more details.
+In order for DPL to load your plugin dynamically, your plugin has to implement the `Plugin` interface. `Plugin.execute(String[])` is the instantiated entry point for your plugin. The execution environment is identical to Stata invoking a static entry point in your plugin. That is, everything you can access via the SFI API (e.g., varlist, if, in) and the supplied arguments are identical in either execution environment. See `Plugin`'s documentation for more details.
 
 #####Setup
 
@@ -20,9 +20,9 @@ This is all the configuration you need to do. In order to use DPL, make sure the
 
 #####Usage
 
-DPL is used best in conjunction with the `jcd` command, which takes care of addressing DPL correctly (see `help jcd` for further details). All you need to do is invoke `jcd` with your module's name:
+DPL is used best in conjunction with the `jcd` command, which takes care of addressing DPL correctly (see `help jcd` for further details). All you need to do is invoke `jcd` with your plugin's name:
 
-`jcd your.company.your.Module`
+`jcd your.company.your.Plugin`
 
 The full command syntax for `jcd` is:
 
@@ -36,7 +36,7 @@ Alternatively, you can also invoke DPL directly:
 
 If your plugin class is on one of the ADO paths DPL will always use this version; it will not load your class from the resource paths specified in the configuration file. That is, versions of classes on ADO paths supersede all versions on `CLASS_PATH`s and `JAR_PATH`s.
 
-Any uncaught exception occurring during the execution of your module leads to DPL returning with error code 44. The exception and its stack trace are printed to the Stata console. This also applies to all steps in preparation of your module's execution (e.g., reading `config/dpl.xml`).
+Any uncaught exception occurring during the execution of your plugin leads to DPL returning with error code 44. The exception and its stack trace are printed to the Stata console. This also applies to all steps in preparation of your plugin's execution (e.g., reading `config/dpl.xml`).
 
 #####Dependencies
 * Stata's SFI API for error logging (http://www.stata.com/java/api/index.html)
