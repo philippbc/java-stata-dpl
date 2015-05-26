@@ -1,6 +1,6 @@
 ### Stata *Dynamic Plugin Loader* (DPL)
 
-The Stata *Dynamic Plugin Loader* (DPL) is Stata Java (SFI) plugin, which dynamically loads other SFI plugins upon execution. It thus allows SFI developers to quickly iterate and debug their own plugins, without having to restart Stata every time. This also applies to the resources SFI plugins may reference (e.g., 3rd party libraries).
+The Stata *Dynamic Plugin Loader* (DPL) is Stata Java (SFI) plugin, which dynamically loads other SFI plugins for execution. It thus allows SFI developers to quickly iterate and debug their own plugins, without having to restart Stata every time. This also applies to the resources SFI plugins may reference (e.g., 3rd party libraries).
 
 #####Plugin Interface
 
