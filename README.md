@@ -30,7 +30,7 @@ The full command syntax for `jcd` is:
 
 Alternatively, you can also invoke DPL directly:
 
-`javacall uk.ac.ucl.msi.stata.PluginLoader start [varlist] [if] [in] [, args(argument_list)]`
+`javacall uk.ac.ucl.msi.stata.PluginLoader start [varlist] [if] [in] , args(your.company.your.Plugin [argument_list])`
 
 #####Notes
 
