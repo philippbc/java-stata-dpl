@@ -38,7 +38,7 @@ If your plugin class is on one of the ADO paths DPL will always use this version
 
 Any uncaught exception occurring during the execution of your plugin leads to DPL returning with error code 44. The exception and its stack trace are printed to the Stata console. This also applies to all steps in preparation of your plugin's execution (e.g., reading `config/dpl.xml`).
 
-DPL requires Java 8. Not for technical reasons, but because Java 8's stream API makes so many things so much easier. If you'd fancy maintaining DPL for Java 7, drop me a message. Otherwise, `set java_vmpath "C:\Program Files\Java\jre1.8.0_XX\bin\server\jvm.dll"` will do the trick (replace `XX` with your current Java 8 version).
+DPL requires Java 8. Not for technical reasons, but because Java 8's stream API makes so many things so much easier. If you'd fancy adapt DPL to Java 7, drop me a message. Otherwise, `set java_vmpath "C:\Program Files\Java\jre1.8.0_XX\bin\server\jvm.dll"` will do the trick (replace `XX` with your current Java 8 version).
 
 #####Dependencies
 * Stata's SFI API for error logging (http://www.stata.com/java/api/index.html)
