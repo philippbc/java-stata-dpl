@@ -3,16 +3,18 @@ package uk.ac.ucl.msi.stata;
 import static uk.ac.ucl.msi.stata.Properties.CLASS_PATH;
 import static uk.ac.ucl.msi.stata.Properties.JAR_PATH;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.io.FileUtils;
 
 import com.stata.sfi.SFIToolkit;
 
@@ -97,7 +99,7 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * </p>
  * 
  * @author Philipp B. Cornelius
- * @version 2015-05-20
+ * @version 5 (2015-07-04)
  */
 public class PluginLoader {
 	
@@ -113,18 +115,17 @@ public class PluginLoader {
 		try {
 			PropertiesWrapper properties = new PropertiesWrapper(Paths.get("config/dpl.xml")).load();
 			
-			List<URL> urls = new ArrayList<>();
+			Set<URL> urls = new HashSet<>();
 			
 			String[] classPaths = properties.get(CLASS_PATH).split(";");
-			urls.addAll(Arrays.stream(classPaths).map(PluginLoader::createUrlQuietly).collect(Collectors.toList()));
+			for (String classPath : classPaths)
+				urls.add(createUrlQuietly(classPath));
 			
 			String[] jarPaths = properties.get(JAR_PATH).split(";");
 			for (String jarPath : jarPaths) {
-				urls.addAll(Files
-						.find(Paths.get(jarPath),
-								4,
-								(f, a) -> a.isRegularFile() && f.getFileName().toString().endsWith(".jar"))
-						.map(PluginLoader::createUrlQuietly).collect(Collectors.toList()));
+				Collection<File> jarFiles = FileUtils.listFiles(new File(jarPath), new String[] { "jar" }, true);
+				for (File jarFile : jarFiles)
+					urls.add(jarFile.toURI().toURL());
 			}
 			
 			String className = args[0];
@@ -165,11 +166,7 @@ public class PluginLoader {
 	 * @return a URL
 	 */
 	private static URL createUrlQuietly(String path) {
-		try {
-			return Paths.get(path).toUri().toURL();
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
+		return createUrlQuietly(Paths.get(path));
 	}
 	
 }
