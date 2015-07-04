@@ -42,5 +42,5 @@ You can run DPL with Java 8 (e.g., if your plugin needs Java 8). To do so, `set 
 
 #####Dependencies
 * Stata's SFI API for error logging (http://www.stata.com/java/api/index.html)
-* Apache Commons(TM) IO 2.4
+* Apache Commons IO 2.4 (https://commons.apache.org/proper/commons-io/)
 * The simple `java.util.Properties` wrapper for the configuration file (https://github.com/philippbc/java-utils-properties)
