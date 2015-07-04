@@ -16,7 +16,7 @@ In a first step, the *Dynamic Plugin Loader* (DPL) has to be configured. Think o
 
 Conveniently, these paths can link directly to your IDE's workspace. For example, `.../Eclipse/Your Project/bin` for all compiled `.class` files in an Eclipse environment.
 
-This is all the configuration you need to do. In order to use DPL, make sure the DPL JAR is in one of Stata's ADO paths and that Stata is configured to use **Java 8** (use `query java` and `set java_vmpath` to achieve this).
+This is all the configuration you need to do. In order to use DPL, make sure the DPL JAR is on one of Stata's ADO paths.
 
 #####Usage
 
@@ -38,7 +38,7 @@ If your plugin class is on one of the ADO paths DPL will always use this version
 
 Any uncaught exception occurring during the execution of your plugin leads to DPL returning with error code 44. The exception and its stack trace are printed to the Stata console. This also applies to all steps in preparation of your plugin's execution (e.g., reading `config/dpl.xml`).
 
-DPL requires Java 8. Not for technical reasons, but because Java 8's stream API makes so many things so much easier. If you'd fancy adapt DPL to Java 7, drop me a message. Otherwise, `set java_vmpath "C:\Program Files\Java\jre1.8.0_XX\bin\server\jvm.dll"` will do the trick (replace `XX` with your current Java 8 version).
+You can run DPL with Java 8 (e.g., if your plugin needs Java 8). To do so, `set java_vmpath "C:\Program Files\Java\jre1.8.0_XX\bin\server\jvm.dll"` will do the trick (replace `XX` with your current Java 8 version). For details, see `query java`.
 
 #####Dependencies
 * Stata's SFI API for error logging (http://www.stata.com/java/api/index.html)
