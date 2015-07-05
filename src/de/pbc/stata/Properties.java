@@ -1,4 +1,4 @@
-package uk.ac.ucl.msi.stata;
+package de.pbc.stata;
 
 import java.nio.file.Paths;
 

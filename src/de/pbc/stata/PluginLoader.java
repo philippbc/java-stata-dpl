@@ -1,7 +1,7 @@
-package uk.ac.ucl.msi.stata;
+package de.pbc.stata;
 
-import static uk.ac.ucl.msi.stata.Properties.CLASS_PATH;
-import static uk.ac.ucl.msi.stata.Properties.JAR_PATH;
+import static de.pbc.stata.Properties.CLASS_PATH;
+import static de.pbc.stata.Properties.JAR_PATH;
 
 import java.io.File;
 import java.net.MalformedURLException;
