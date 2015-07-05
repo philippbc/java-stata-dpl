@@ -1,14 +1,10 @@
 ### Stata *Dynamic Plugin Loader* (DPL)
 
-The Stata *Dynamic Plugin Loader* (DPL) is Stata Java (SFI) plugin, which dynamically loads other SFI plugins for execution. It thus allows SFI developers to quickly iterate and debug their own plugins, without having to restart Stata every time. This also applies to the resources SFI plugins may reference (e.g., 3rd party libraries).
-
-#####Plugin Interface
-
-In order for DPL to load your plugin dynamically, your plugin has to implement the `Plugin` interface. `Plugin.execute(String[])` is the instantiated entry point for your plugin. The execution environment is identical to Stata invoking a static entry point in your plugin. That is, everything you can access via the SFI API (e.g., varlist, if, in) and the supplied arguments are identical in either execution environment. See `Plugin`'s documentation for more details.
+The Stata *Dynamic Plugin Loader* (DPL) is Stata Java plugin to dynamically load other Java plugins. It thus allows developers to quickly iterate and debug their own plugins, without having to restart Stata for each new build.
 
 #####Setup
 
-In a first step, the *Dynamic Plugin Loader* (DPL) has to be configured. Think of it as setting up your IDE by configuring the `CLASS_PATH` to a 3rd party library. In fact, that is exactly what you have to do for DPL too: You have to specify the directories containing your plugins and 3rd party libraries. To do this DPL expects `config/dpl.xml` in the current `user.dir`. In the case of Stata, this is always the working directory (`pwd`) at the time the JVM was started.
+In a first step, the *Dynamic Plugin Loader* (DPL) has to be configured. Think of it as setting up your IDE by configuring the `CLASS_PATH` to a 3rd party library. DPL expects `config/dpl.xml` in the current `user.dir`. In the case of Stata, this is always the working directory (`pwd`) at the time the Java Virtual Machine (JVM) was started.
 
 `config/dpl.xml` is expected to be a standard XML file as it is used by `java.util.Properties`. It should contain 2 properties:
 * `CLASS_PATH`: Semicolon (`;`) separated paths to all folders containing compiled Java `.class` files. The paths have to satisfy `Paths.get(String, String...)` naming conventions. The paths may be relative to `user.dir`.
@@ -17,6 +13,10 @@ In a first step, the *Dynamic Plugin Loader* (DPL) has to be configured. Think o
 Conveniently, these paths can link directly to your IDE's workspace. For example, `.../Eclipse/Your Project/bin` for all compiled `.class` files in an Eclipse environment.
 
 This is all the configuration you need to do. In order to use DPL, make sure the DPL JAR is on one of Stata's ADO paths.
+
+#####Plugin Interface
+
+In order for DPL to load a plugin dynamically, the plugin has to implement the `Plugin` interface. `Plugin.execute(String[])` is the *instantiated* entry point for the plugin. The execution environment in `Plugin.execute(String[])` is identical to Stata invoking a static entry point. That is, everything you can access via the SFI API (e.g., varlist, if, in) and the supplied arguments are identical. See `Plugin`'s documentation for more details.
 
 #####Usage
 
@@ -33,6 +33,8 @@ Alternatively, you can also invoke DPL directly:
 `javacall uk.ac.ucl.msi.stata.PluginLoader start [varlist] [if] [in] , args(your.company.your.Plugin [argument_list])`
 
 #####Notes
+
+DPL can also load 3rd party resources dynamically. Just add any folders containing JARs or class files as you would do for your own plugin.
 
 If your plugin class is on one of the ADO paths DPL will always use this version; it will not load your class from the resource paths specified in the configuration file. That is, versions of classes on ADO paths supersede all versions on `CLASS_PATH`s and `JAR_PATH`s.
 
