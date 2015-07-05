@@ -25,5 +25,5 @@ program jcd
 		scalar es_`e_elt' = e(`e_elt')
 	}
 	
-	javacall uk.ac.ucl.msi.stata.PluginLoader start `anything' `if' `in', args(`class' `args')
+	javacall de.pbc.stata.PluginLoader start `anything' `if' `in', args(`class' `args')
 end

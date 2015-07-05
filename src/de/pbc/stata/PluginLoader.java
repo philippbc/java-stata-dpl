@@ -22,31 +22,18 @@ import de.pbc.utils.properties.PropertiesWrapper;
 
 /**
  * <p>
- * The Stata <i>Dynamic Plugin Loader</i> (DPL) is Stata Java (SFI) plugin,
- * which dynamically loads other SFI plugins for execution. It thus allows SFI
- * developers to quickly iterate and debug their own plugins, without having to
- * restart Stata every time. This also applies to the resources SFI plugins may
- * reference (e.g., 3rd party libraries).
- * </p>
- * <h2>Plugin Interface</h2>
- * <p>
- * In order for DPL to load your plugin dynamically, your plugin has to
- * implement the {@link Plugin} interface. {@link Plugin#execute(String[])} is
- * the instantiated entry point for your plugin. The execution environment is
- * identical to Stata invoking a static entry point in your plugin. That is,
- * everything you can access via the SFI API (e.g., varlist, if, in) and the
- * supplied arguments are identical in either execution environment. See
- * {@link Plugin} for more details.
+ * The Stata <i>Dynamic Plugin Loader</i> (DPL) is Stata Java plugin to
+ * dynamically load other Java plugins. It thus allows developers to quickly
+ * iterate and debug their own plugins, without having to restart Stata for each
+ * new build.
  * </p>
  * <h2>Setup</h2>
  * <p>
  * In a first step, the <i>Dynamic Plugin Loader</i> (DPL) has to be configured.
  * Think of it as setting up your IDE by configuring the {@code CLASS_PATH} to a
- * 3rd party library. In fact, that is exactly what you have to do for DPL too:
- * You have to specify the directories containing your plugins and 3rd party
- * libraries. To do this DPL expects {@code config/dpl.xml} in the current
+ * 3rd party library. DPL expects {@code config/dpl.xml} in the current
  * {@code user.dir}. In the case of Stata, this is always the working directory
- * ({@code pwd}) at the time the JVM was started.
+ * ({@code pwd}) at the time the Java Virtual Machine (JVM) was started.
  * </p>
  * <p>
  * {@code config/dpl.xml} is expected to be a standard XML file as it is used by
@@ -68,6 +55,16 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * <p>
  * This is all the configuration you need to do. In order to use DPL, make sure
  * the DPL JAR is in one of Stata's ADO path directories.
+ * <h2>Plugin Interface</h2>
+ * <p>
+ * In order for DPL to load a plugin dynamically, the plugin has to implement
+ * the {@link Plugin} interface. {@link Plugin#execute(String[])} is the
+ * <i>instantiated</i> entry point for the plugin. The execution environment in
+ * {@link Plugin#execute(String[])} is identical to Stata invoking a static
+ * entry point. That is, everything you can access via the SFI API (e.g.,
+ * varlist, if, in) and the supplied arguments are identical. See {@link Plugin}
+ * 's documentation for more details.
+ * </p>
  * <h2>Usage</h2>
  * <p>
  * DPL is used best in conjunction with the {@code jcd} command, which takes
@@ -86,6 +83,10 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * </p>
  * <h2>Notes</h2>
  * <p>
+ * DPL can also load 3rd party resources dynamically. Just add any folders
+ * containing JARs or class files as you would do for your own plugin.
+ * </p>
+ * <p>
  * If your plugin class is on one of the ADO paths DPL will always use this
  * version; it will not load your class from the resource paths specified in the
  * configuration file. That is, versions of classes on ADO paths supersede all
@@ -96,6 +97,12 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * DPL returning with error code 44. The exception and its stack trace are
  * printed to the Stata console. This also applies to all steps in preparation
  * of your plugin's execution (e.g., reading {@code config/dpl.xml}).
+ * </p>
+ * <p>
+ * You can run DPL with Java 8 (e.g., if your plugin needs Java 8). To do so,
+ * {@code set java_vmpath "C:\Program Files\Java\jre1.8.0_XX\bin\server\jvm.dll"}
+ * will do the trick (replace XX with your current Java 8 version). For details,
+ * see {@code query java}.
  * </p>
  * 
  * @author Philipp B. Cornelius
