@@ -4,7 +4,7 @@ The Stata *Dynamic Plugin Loader* (DPL) is Stata Java plugin to dynamically load
 
 #####Setup
 
-In a first step, the *Dynamic Plugin Loader* (DPL) has to be configured. Think of it as setting up your IDE by configuring the `CLASS_PATH` to a 3rd party library. DPL expects `config/dpl.xml` in the current `user.dir`. In the case of Stata, this is always the working directory (`pwd`) at the time the Java Virtual Machine (JVM) was started.
+In a first step, the *Dynamic Plugin Loader* (DPL) has to be configured. Think of it as setting up your IDE by configuring the `CLASS_PATH` to a 3rd party library. For this purpose, DPL expects `config/dpl.xml` in the current `user.dir`. In the case of Stata, this is always the working directory (`pwd`) at the time the Java Virtual Machine (JVM) was started.
 
 `config/dpl.xml` is expected to be a standard XML file as it is used by `java.util.Properties`. It should contain 2 properties:
 * `CLASS_PATH`: Semicolon (`;`) separated paths to all folders containing compiled Java `.class` files. The paths have to satisfy `Paths.get(String, String...)` naming conventions. The paths may be relative to `user.dir`.
