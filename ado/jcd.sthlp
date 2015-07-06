@@ -12,7 +12,7 @@
 {title:Title}
 
 {phang}
-{bf:jcd} {hline 2} Dynamically call Java plugins
+{bf:jcd} {hline 2} Dynamically load and call Java plugins
 
 
 {marker syntax}{...}
