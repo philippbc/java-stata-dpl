@@ -31,9 +31,10 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * <p>
  * In a first step, the <i>Dynamic Plugin Loader</i> (DPL) has to be configured.
  * Think of it as setting up your IDE by configuring the {@code CLASS_PATH} to a
- * 3rd party library. DPL expects {@code config/dpl.xml} in the current
- * {@code user.dir}. In the case of Stata, this is always the working directory
- * ({@code pwd}) at the time the Java Virtual Machine (JVM) was started.
+ * 3rd party library. For this purpose, DPL expects {@code config/dpl.xml} in
+ * the current {@code user.dir}. In the case of Stata, this is always the
+ * working directory ({@code pwd}) at the time the Java Virtual Machine (JVM)
+ * was started.
  * </p>
  * <p>
  * {@code config/dpl.xml} is expected to be a standard XML file as it is used by
@@ -59,11 +60,9 @@ import de.pbc.utils.properties.PropertiesWrapper;
  * <p>
  * In order for DPL to load a plugin dynamically, the plugin has to implement
  * the {@link Plugin} interface. {@link Plugin#execute(String[])} is the
- * <i>instantiated</i> entry point for the plugin. The execution environment in
- * {@link Plugin#execute(String[])} is identical to Stata invoking a static
- * entry point. That is, everything you can access via the SFI API (e.g.,
- * varlist, if, in) and the supplied arguments are identical. See {@link Plugin}
- * 's documentation for more details.
+ * <i>instantiated</i> entry point: <b>All work to be done in the plugin should
+ * start in {@link Plugin#execute(String[])}.</b> See {@link Plugin}'s
+ * documentation for more details.
  * </p>
  * <h2>Usage</h2>
  * <p>
