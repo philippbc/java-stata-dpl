@@ -16,7 +16,7 @@ This is all the configuration you need to do. In order to use DPL, make sure the
 
 #####Plugin Interface
 
-In order for DPL to load a plugin dynamically, the plugin has to implement the `Plugin` interface. `Plugin.execute(String[])` is the *instantiated* entry point for the plugin. The execution environment in `Plugin.execute(String[])` is identical to Stata invoking a static entry point. That is, everything you can access via the SFI API (e.g., varlist, if, in) and the supplied arguments are identical. See `Plugin`'s documentation for more details.
+In order for DPL to load a plugin dynamically, the plugin has to implement the `Plugin` interface. `Plugin.execute(String[])` is the *instantiated* entry point: **All work to be done in the plugin should start in `Plugin.execute(String[])`.** See `Plugin`'s documentation for more details.
 
 #####Usage
 
