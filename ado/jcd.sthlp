@@ -75,7 +75,7 @@ This is all the configuration you need to do. In order to use DPL, make sure the
 {title:Remarks}
 
 {pstd}
-See {browse "https://github.com/philippbc/java-stata-dpl":github.com/philippbc/java-stata-dpl}  for more documentation and help forums.
+See {browse "http://github.com/philippbc/java-stata-dpl":github.com/philippbc/java-stata-dpl}  for more documentation and help forums.
 
 {pstd}
 If your plugin class is on one of the ADO paths DPL will always use this version; it will not load your class from the resource paths specified in the configuration file.
@@ -96,8 +96,8 @@ To do so, {cmd:set java_vmpath "C:\Program Files\Java\jre1.8.0_XX\bin\server\jvm
 Stata's SFI API for error logging ({browse "http://www.stata.com/java/api/index.html"})
 
 {pstd}
-Apache Commons IO 2.4 ({browse "https://commons.apache.org/proper/commons-io/"})
+Apache Commons IO 2.4 ({browse "http://commons.apache.org/proper/commons-io/"})
 
 {pstd}
-The simple java.util.Properties wrapper for the configuration file ({browse "https://github.com/philippbc/java-utils-properties"})
+The simple java.util.Properties wrapper for the configuration file ({browse "http://github.com/philippbc/java-utils-properties"})
 

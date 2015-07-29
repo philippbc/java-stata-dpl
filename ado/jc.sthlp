@@ -38,7 +38,7 @@ The syntax of {cmd:jc} and {cmd:javacall} is identical.
 {title:Remarks}
 
 {pstd}
-See {browse "https://github.com/philippbc/java-stata-dpl":github.com/philippbc/java-stata-dpl}  for more documentation and help forums.
+See {browse "http://github.com/philippbc/java-stata-dpl":github.com/philippbc/java-stata-dpl}  for more documentation and help forums.
 
 {marker dependencies}{...}
 {title:Dependencies}
