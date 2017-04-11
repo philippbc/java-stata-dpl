@@ -2,7 +2,7 @@
 
 The Stata *Dynamic Plugin Loader* (DPL) is Stata Java plugin to dynamically load other Java plugins. It thus allows developers to quickly iterate and debug their own plugins, without having to restart Stata for each new build.
 
-#####Setup
+##### Setup
 
 In a first step, the *Dynamic Plugin Loader* (DPL) has to be configured. Think of it as setting up your IDE by configuring the `CLASS_PATH` to a 3rd party library. For this purpose, DPL expects `config/dpl.xml` in the current `user.dir`. In the case of Stata, this is always the working directory (`pwd`) at the time the Java Virtual Machine (JVM) was started.
 
@@ -14,11 +14,11 @@ Conveniently, these paths can link directly to your IDE's workspace. For example
 
 This is all the configuration you need to do. In order to use DPL, make sure the DPL JAR is on one of Stata's ADO paths.
 
-#####Plugin Interface
+##### Plugin Interface
 
 In order for DPL to load a plugin dynamically, the plugin has to implement the `Plugin` interface. `Plugin.execute(String[])` is the *instantiated* entry point: **All work to be done in the plugin should start in `Plugin.execute(String[])`.** See `Plugin`'s documentation for more details.
 
-#####Usage
+##### Usage
 
 DPL is used best in conjunction with the `jcd` command, which takes care of addressing DPL correctly (see `help jcd` for further details). All you need to do is invoke `jcd` with your plugin's name:
 
@@ -32,7 +32,7 @@ Alternatively, you can also invoke DPL directly:
 
 `javacall uk.ac.ucl.msi.stata.PluginLoader start [varlist] [if] [in] , args(your.company.your.Plugin [argument_list])`
 
-#####Notes
+##### Notes
 
 DPL can also load 3rd party resources dynamically. Just add any folders containing JARs or class files as you would do for your own plugin.
 
@@ -42,7 +42,7 @@ Any uncaught exception occurring during the execution of your plugin leads to DP
 
 You can run DPL with Java 8 (e.g., if your plugin needs Java 8). To do so, `set java_vmpath "C:\Program Files\Java\jre1.8.0_XX\bin\server\jvm.dll"` will do the trick (replace `XX` with your current Java 8 version). For details, see `query java`.
 
-#####Dependencies
+##### Dependencies
 * Stata's SFI API for error logging (http://www.stata.com/java/api/index.html)
 * Apache Commons IO 2.4 (https://commons.apache.org/proper/commons-io/)
 * The simple `java.util.Properties` wrapper for the configuration file (https://github.com/philippbc/java-utils-properties)
